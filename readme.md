@@ -1,7 +1,7 @@
 # Учебный проект «Куплю. Продам» [![Build status][travis-image]][travis-url]
 
 * Студент: [Денис Гончарук](https://up.htmlacademy.ru/nodejs/3/user/456329).
-* Наставник: `Неизвестно`.
+* Наставник: [Кирилл Коновалов](https://htmlacademy.ru/profile/id1498517).
 
 ---
 
