@@ -76,20 +76,15 @@ module.exports = {
     const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
     const content = JSON.stringify(generateOffers(countOffer));
 
-    console.log([count])
-
-    if ([count] < 1000) {
+    if (args < 1000) {
       fs.writeFile(FILE_NAME, content, (err) => {
         if (err) {
-          return console.error(`Can't write data to file...`);
+          console.log(`Can't write data to file...`);
         }
       });
     } else {
-      console.log(`Не больше 1000 объявлений`)
+      console.log(`Не больше 1000 объявлений`);
     }
-
-
   }
-
 };
 
