@@ -68,7 +68,7 @@ module.exports = {
     try {
       if (args < 1000) {
         await fs.writeFile(FILE_NAME, content);
-        logInfo(`Operation success. File created.`)
+        logInfo(`Operation success. File created.`, `green`)
       } else {
         logInfoError(`Less then 1000, please`)
       }
