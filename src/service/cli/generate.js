@@ -11,6 +11,7 @@ const {
   shuffle,
   getPictureFileName,
   logInfo,
+  logInfoError,
 } = require(`../../utils`);
 
 const DEFAULT_COUNT = 1;
@@ -48,7 +49,7 @@ const readContent = async (filePath) => {
     const content = await fs.readFile(filePath, `utf8`);
     return content.split(`\n`);
   } catch (err) {
-    logInfo(`error`, err)
+    logInfoError(err)
     return [];
   }
 };
@@ -67,12 +68,12 @@ module.exports = {
     try {
       if (args < 1000) {
         await fs.writeFile(FILE_NAME, content);
-        logInfo(`log`, `Operation success. File created.`, `green`)
+        logInfo(`Operation success. File created.`)
       } else {
-        logInfo(`error`, `Less then 1000, please`)
+        logInfoError(`Less then 1000, please`)
       }
     } catch (err) {
-      logInfo(`error`, `Can't write data to file...`)
+      logInfoError(`Can't write data to file...`)
     }
   }
 };
