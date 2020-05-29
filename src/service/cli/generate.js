@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require(`fs`).promises;
-const chalk = require(`chalk`);
 
 const FILE_SENTENCES_PATH = `./data/sentences.txt`;
 const FILE_TITLES_PATH = `./data/titles.txt`;
@@ -11,6 +10,7 @@ const {
   getRandomInt,
   shuffle,
   getPictureFileName,
+  logInfo,
 } = require(`../../utils`);
 
 const DEFAULT_COUNT = 1;
@@ -21,7 +21,6 @@ const OfferType = {
   offer: `offer`,
   sale: `sale`,
 };
-
 
 const SumRestrict = {
   min: 1000,
@@ -49,7 +48,7 @@ const readContent = async (filePath) => {
     const content = await fs.readFile(filePath, `utf8`);
     return content.split(`\n`);
   } catch (err) {
-    console.error(chalk.red(err));
+    logInfo(`error`, err)
     return [];
   }
 };
@@ -68,12 +67,12 @@ module.exports = {
     try {
       if (args < 1000) {
         await fs.writeFile(FILE_NAME, content);
-        console.log(chalk.green(`Operation success. File created.`));
+        logInfo(`log`, `Operation success. File created.`, `green`)
       } else {
-        console.log(chalk.red(`Less then 1000 please`));
+        logInfo(`error`, `Less then 1000, please`)
       }
     } catch (err) {
-      console.log(chalk.red(`Can't write data to file...`));
+      logInfo(`error`, `Can't write data to file...`)
     }
   }
 };
