@@ -27,4 +27,4 @@ module.exports.getPictureFileName = (numb) => {
 
 module.exports.logInfo = (logText, logColor) => console.log(chalk`{${logColor} ${logText}}`);
 
-module.exports.logInfoError = (logText) => console.log(chalk.red(logText));
+module.exports.logInfoError = (logText) => console.error(chalk.red(logText));
