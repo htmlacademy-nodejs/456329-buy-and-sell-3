@@ -53,7 +53,7 @@ const readContent = async (filePath) => {
 
     return contentTrim;
   } catch (err) {
-    logInfoError(err)
+    logInfoError(err);
     return [];
   }
 };
@@ -72,12 +72,12 @@ module.exports = {
     try {
       if (args < 1000) {
         await fs.writeFile(FILE_NAME, content);
-        logInfo(`Operation success. File created.`, `green`)
+        logInfo(`Operation success. File created.`, `green`);
       } else {
-        logInfoError(`Less then 1000, please`)
+        logInfoError(`Less then 1000, please`);
       }
     } catch (err) {
-      logInfoError(`Can't write data to file...`)
+      logInfoError(`Can't write data to file...`);
     }
   }
 };
