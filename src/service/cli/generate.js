@@ -53,8 +53,10 @@ const readContent = async (filePath) => {
       .map((line) => {
         return line.trim();
       })
-      .filter(Boolean);
-      
+      .filter((line) => {
+        return line ? true : false;
+      });
+
     return contentTrim;
   } catch (err) {
     logInfoError(err);

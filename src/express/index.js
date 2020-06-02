@@ -9,7 +9,11 @@ const {
 // Маршруты приложения мы опишем в отдельных файлах.
 // Для определения маршрутов мы воспользуемся Router().
 // Примеры маршрутов будут продемонстрированы ниже по тексту.
-const { offersRoutes,contentRoutes,actionRoutes } = require(`./routes/index`)
+const {
+  offersRoutes,
+  contentRoutes,
+  actionRoutes,
+} = require(`./routes/index`);
 
 // Зафиксируем порт для сервера
 const DEFAULT_PORT = 8080;
