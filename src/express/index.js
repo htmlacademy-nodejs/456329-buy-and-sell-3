@@ -1,6 +1,9 @@
 'use strict';
 
 const express = require(`express`);
+const path = require(`path`);
+
+const PUBLIC_DIR = `public`;
 
 const {
   logInfo,
@@ -19,6 +22,11 @@ const {
 const DEFAULT_PORT = 8080;
 
 const app = express();
+
+// Используем необходимые модули
+app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
+app.set(`views`, path.resolve(__dirname, `templates`));
+app.set(`view engine`, `pug`);
 
 // Подключим созданные маршруты
 app.use(`/offers`, offersRoutes);
