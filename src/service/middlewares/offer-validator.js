@@ -1,3 +1,5 @@
+'use strict';
+
 const { HttpCode } = require(`../../constants`);
 
 const offerKeys = [`category`, `description`, `picture`, `title`, `type`, `sum`];

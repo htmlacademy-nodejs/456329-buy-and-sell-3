@@ -1,3 +1,5 @@
+'use strict';
+
 const { nanoid } = require(`nanoid`);
 const MAX_ID_LENGTH = 6;
 
@@ -7,11 +9,15 @@ class OfferService {
     }
   
     create(offer) {
-      const newOffer = Object
-        .assign({id: nanoid(MAX_ID_LENGTH), comments: []}, offer);
+      const newOffer = Object.assign({id: nanoid(MAX_ID_LENGTH), comments: []}, offer);
   
       this._offers.push(newOffer);
       return newOffer;
+    }
+
+    createComment(comment, commentText) {
+      const newComment = comment.push({id:nanoid(MAX_ID_LENGTH), text: commentText})
+      return newComment
     }
   
     drop(id) {
@@ -43,3 +49,4 @@ class OfferService {
   }
 
   module.exports = OfferService;
+  
