@@ -1,12 +1,12 @@
 'use strict';
 
 const fs = require(`fs`).promises;
-const { nanoid } = require(`nanoid`);
+const {nanoid} = require(`nanoid`);
 
 const FILE_SENTENCES_PATH = `./data/sentences.txt`;
 const FILE_TITLES_PATH = `./data/titles.txt`;
 const FILE_CATEGORIES_PATH = `./data/categories.txt`;
-const FILE_COMMENTS_PATH = `./data/comments.txt`
+const FILE_COMMENTS_PATH = `./data/comments.txt`;
 
 const {
   getRandomInt,

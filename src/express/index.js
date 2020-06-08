@@ -3,7 +3,7 @@
 const express = require(`express`);
 const path = require(`path`);
 const app = express();
-const { data } = require(`../api`)
+const {data} = require(`../api`);
 
 const {
   logInfo,
@@ -16,7 +16,7 @@ const {
 } = require(`./routes/index`);
 
 const PUBLIC_DIR = `public`;
-const API_PREFIX = `/api`
+const API_PREFIX = `/api`;
 const DEFAULT_PORT = 8080;
 
 app.use(express.json());

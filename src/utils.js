@@ -1,7 +1,7 @@
 'use strict';
 
 const chalk = require(`chalk`);
-const { nanoid } = require(`nanoid`);
+const {nanoid} = require(`nanoid`);
 
 const {
   MAX_ID_LENGTH,

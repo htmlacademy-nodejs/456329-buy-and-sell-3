@@ -1,5 +1,4 @@
-`use strict`;
-
+'use strict';
 const fs = require(`fs`).promises;
 
 const FILE_MOCKS_PATH = `./mocks.json`;
