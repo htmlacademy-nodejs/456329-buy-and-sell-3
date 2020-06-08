@@ -1,34 +1,36 @@
 const { Router } = require(`express`);
 const { HttpCode } = require(`../../constants`);
-const offerValidator = require(`../../service/middlewares/offer-validator`);
-const offerExist = require(`../../service/middlewares/offer-exist`)
 const route = new Router();
 
-module.exports = (app, offerService) => {
+module.exports = (app, service) => {
     app.use(`/offers`, route);
+
+    route.get(`/`, (req, res) => {
+        const offers = service.findAll();
+        res.status(HttpCode.OK)
+            .json(offers);
+    });
 
     route.get(`/:offerId`, (req, res) => {
         const { offerId } = req.params;
-        const offer = offerService.findOne(offerId);
+        const offerById = service.findOne(offerId);
+        res.status(HttpCode.OK)
+            .json(offerById);
 
-        if (!offer) {
-            return res.status(HttpCode.NOT_FOUND)
-                .send(`Not found with ${offerId}`);
-        }
-
-        return res.status(HttpCode.OK)
-            .json(offer);
     });
 
-    route.get(`/:offerId/comments`, offerExist(offerService), (req, res) => {
-        const {offer} = res.locals;
+    route.get(`/:offerId/comments`, (req, res) => {
+        const { offerId } = req.params;
+        const offerById = service.findOne(offerId).comments;
+        res.status(HttpCode.OK)
+            .json(offerById);
+
     });
 
-    route.post(`/`, offerValidator, (req, res) => {
-        const offer = offerService.create(req.body);
-
-        return res.status(HttpCode.CREATED)
-            .json(offer);
-    });
+    route.post(`/`, (req, res) => {
+        const {category, description, picture, title, type, sum} = req.body;
+        const newOffer = service.create({ category, description, picture, title, type, sum });
+        res.status(HttpCode.CREATED).json(newOffer);
+    })
 
 }

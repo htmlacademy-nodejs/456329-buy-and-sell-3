@@ -1,10 +1,36 @@
+`use strict`;
 
-const setCategoryController = require(`./category/category`)
-const search = require(`./search/search`)
-const offer = require(`./offer/offer`)
+const { Router } = require(`express`);
+const { getMockData } = require(`../service/lib/get-mock-data`);
 
-module.exports = {
-    setCategoryController,
-    search,
-    offer,
-}
+const { CategoryService, OfferService } = require(`../service/data-service`);
+
+
+const setCategoryController = require(`./category/category`);
+const setOfferController = require(`./offer/offer`)
+
+const apiRoutes = {
+    CATEGORIES: `/categories`,
+    OFFERS: `/offers`
+};
+
+const router = new Router();
+
+(async () => {
+    try {
+        const offers = await getMockData();
+        const categoryService = new CategoryService(offers);
+        const offerService = new OfferService(offers)
+
+        setCategoryController(router, categoryService);
+        setOfferController(router, offerService)
+        
+        router.use(apiRoutes.CATEGORIES, router);
+        router.use(apiRoutes.OFFERS, router)
+
+    } catch (error) {
+        console.error(error);
+    }
+})();
+
+exports.data = router;

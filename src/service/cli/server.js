@@ -1,14 +1,12 @@
 'use strict';
 
 const express = require(`express`);
-const {readFile} = require(`fs`).promises;
 const {HttpCode} = require(`../../constants`);
 
 const {
   logInfo,
   logInfoError,
 } = require(`../../utils`);
-
 
 
 const DEFAULT_PORT = 3000;
@@ -19,7 +17,6 @@ module.exports = {
   run(args) {
     const [customPort] = args;
     const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
-    
 
     const app = express();
 

@@ -1,15 +1,9 @@
 'use strict';
 
 const express = require(`express`);
-const { Router } = require(`express`);
 const path = require(`path`);
-const router = new Router()
 const app = express();
-
-const { readFile } = require(`fs`).promises;
-const { setCategoryController } = require(`../api`);
-const { CategoryService } = require(`../service/data-service`);
-
+const { data } = require(`../api`)
 
 const {
   logInfo,
@@ -21,24 +15,14 @@ const {
   actionRoutes,
 } = require(`./routes/index`);
 
-
 const PUBLIC_DIR = `public`;
-const FILENAME = `./mocks.json`;
 const API_PREFIX = `/api`
 const DEFAULT_PORT = 8080;
 
-let offers;
+app.use(express.json());
 
-(async function () {
-  offers = await readFile(FILENAME);
-  offers = JSON.parse(offers.toString());
-  const categoryService = new CategoryService(offers)
-  app.use(API_PREFIX, router);
-  setCategoryController(router, categoryService);
-  
-})();
-
-
+// Используем REST api
+app.use(API_PREFIX, data);
 
 // Используем необходимые модули
 app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));

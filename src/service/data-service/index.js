@@ -1,5 +1,7 @@
 const CategoryService = require(`./category`)
+const OfferService = require(`./offer`)
 
 module.exports = {
-    CategoryService
+    CategoryService,
+    OfferService
 }

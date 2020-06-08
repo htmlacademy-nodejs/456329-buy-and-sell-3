@@ -1,21 +1,23 @@
+`use strict`;
+
 const fs = require(`fs`).promises;
-const FILENAME = `mocks.json`;
-let data = null;
 
-module.exports.getMockData = async () => {
-    if (data !== null) {
-        return Promise.resolve(data);
-    }
-    try {
-        const fileContent = await fs.readFile(FILENAME);
-        data = JSON.parse(fileContent);
-        res.json(data);
-    } catch (err) {
-        logInfoError(`Ошибка ${err}`);
-        res.status(HttpCode.INTERNAL_SERVER_ERROR);
-        res.end();
-        return Promise.reject(err);
-    }
+const FILE_MOCKS_PATH = `./mocks.json`;
 
-    return Promise.resolve(data);
+let data = [];
+
+exports.getMockData = async () => {
+  if (data.length) {
+    return data;
+  }
+
+  try {
+    const offers = await fs.readFile(FILE_MOCKS_PATH);
+
+    data = JSON.parse(offers);
+  } catch (error) {
+    console.error(error);
+  }
+
+  return data;
 };
