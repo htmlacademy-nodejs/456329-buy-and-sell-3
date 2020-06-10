@@ -9,16 +9,25 @@ class OfferService {
   }
 
   create(offer) {
-    const newOffer = Object.assign({id: nanoid(MAX_ID_LENGTH), comments: []}, offer);
+    const newOffer = Object.assign({
+      id: nanoid(MAX_ID_LENGTH),
+      comments: []
+    }
+    , offer);
 
     this._offers.push(newOffer);
     return newOffer;
   }
 
-  createComment(comment, commentText) {
-    const newComment = comment.push({id: nanoid(MAX_ID_LENGTH), text: commentText});
+  createComment(offer, comment) {
+    const newComment = Object.assign({
+      id: nanoid(MAX_ID_LENGTH)
+    }, comment);
+
+    offer.comments.push(newComment);
     return newComment;
   }
+
 
   drop(id) {
     const offer = this._offers.find((item) => item.id === id);
@@ -31,6 +40,17 @@ class OfferService {
     return offer;
   }
 
+  dropComment(offer, commentId) {
+    const dropComment = offer.comments.find((item) => item.id === commentId);
+
+    if (!dropComment) {
+      return null;
+    }
+
+    offer.comments = offer.comments.filter((item) => item.id !== commentId);
+    return dropComment;
+  }
+
   findAll() {
     return this._offers;
   }
@@ -41,7 +61,7 @@ class OfferService {
 
   update(id, offer) {
     const oldOffer = this._offers
-        .find((item) => item.id === id);
+      .find((item) => item.id === id);
 
     return Object.assign(oldOffer, offer);
   }

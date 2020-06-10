@@ -29,9 +29,9 @@ const router = new Router();
     setOfferController(router, offerService);
     setSearchController(router, search);
 
-    router.use(apiRoutes.CATEGORIES, router);
-    router.use(apiRoutes.OFFERS, router);
-    router.use(apiRoutes.SEARCH, router);
+    router.use(apiRoutes.CATEGORIES, setCategoryController);
+    router.use(apiRoutes.OFFERS, setOfferController);
+    router.use(apiRoutes.SEARCH, setSearchController);
 
   } catch (error) {
     console.error(error);
