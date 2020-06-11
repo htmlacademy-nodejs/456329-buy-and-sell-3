@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require(`express`);
-const {readFile} = require(`fs`).promises;
 const {HttpCode} = require(`../../constants`);
 
 const {
@@ -9,8 +8,8 @@ const {
   logInfoError,
 } = require(`../../utils`);
 
+
 const DEFAULT_PORT = 3000;
-const FILENAME = `mocks.json`;
 
 
 module.exports = {
@@ -22,18 +21,6 @@ module.exports = {
     const app = express();
 
     app.use(express.json());
-
-    app.get(`/offers`, async (req, res) => {
-      try {
-        const fileContent = await readFile(FILENAME);
-        const mocks = JSON.parse(fileContent);
-        res.json(mocks);
-      } catch (err) {
-        logInfoError(`Ошибка в маршруте '/offers' ${err}`);
-        res.status(HttpCode.INTERNAL_SERVER_ERROR);
-        res.end();
-      }
-    });
 
     app.use((req, res) => res.status(HttpCode.NOT_FOUND).send(`Not found`));
 
