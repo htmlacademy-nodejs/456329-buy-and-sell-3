@@ -5,7 +5,7 @@
   "main": "./src/service/service.js",
   "scripts": {
     "test": "npm run eslint",
-    "test::rest": "jest offer.e2e.test.js",
+    "test::rest": "jest",
     "eslint": "eslint --ext .js src/",
     "eslint.fix": "eslint --ext .js src/ --fix",
     "start": "node ./src/service/service.js",

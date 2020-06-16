@@ -5,6 +5,7 @@ const path = require(`path`);
 const app = express();
 const apiRoutes = require(`../api`);
 const {getLogger} = require(`../service/cli/logger`);
+const {HttpCode} = require(`../constants`);
 
 const logger = getLogger();
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(API_PREFIX, apiRoutes);
 
 app.use((req, res) => {
+  res.status(HttpCode.NOT_FOUND)
   res.json({
     error: {
       'name': 'Error',
