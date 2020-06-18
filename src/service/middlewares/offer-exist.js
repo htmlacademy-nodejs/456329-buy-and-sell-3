@@ -1,8 +1,11 @@
 'use strict';
 
 const {HttpCode} = require(`../../constants`);
+const {getLogger} = require(`../../service/cli/logger`);
 
-exports.existingOffer = (service) => (req, res, next) => {
+const logger = getLogger();
+
+exports.existingOffer = (service, loggerText) => (req, res, next) => {
   const {offerId} = req.params;
   const offer = service.findOne(offerId);
 
@@ -12,5 +15,6 @@ exports.existingOffer = (service) => (req, res, next) => {
   }
 
   res.locals.offer = offer;
+  logger.debug(`${loggerText} - status code: ${req.url}`);
   return next();
 };

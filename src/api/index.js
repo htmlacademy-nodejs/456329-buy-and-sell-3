@@ -5,16 +5,9 @@ const {getMockData} = require(`../service/lib/get-mock-data`);
 
 const {CategoryService, OfferService, SearchService} = require(`../service/data-service`);
 
-
 const setCategoryController = require(`./category/category`);
 const setOfferController = require(`./offer/offer`);
 const setSearchController = require(`./search/search`);
-
-const apiRoutes = {
-  CATEGORIES: `/categories`,
-  OFFERS: `/offers`,
-  SEARCH: `/search`
-};
 
 const router = new Router();
 
@@ -29,13 +22,10 @@ const router = new Router();
     setOfferController(router, offerService);
     setSearchController(router, search);
 
-    router.use(apiRoutes.CATEGORIES, setCategoryController);
-    router.use(apiRoutes.OFFERS, setOfferController);
-    router.use(apiRoutes.SEARCH, setSearchController);
-
   } catch (error) {
     console.error(error);
   }
 })();
 
-exports.data = router;
+module.exports = router;
+

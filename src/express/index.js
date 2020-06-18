@@ -3,11 +3,11 @@
 const express = require(`express`);
 const path = require(`path`);
 const app = express();
-const {data} = require(`../api`);
+const apiRoutes = require(`../api`);
+const {getLogger} = require(`../service/cli/logger`);
+const {HttpCode} = require(`../constants`);
 
-const {
-  logInfo,
-} = require(`../utils`);
+const logger = getLogger();
 
 const {
   offersRoutes,
@@ -22,7 +22,20 @@ const DEFAULT_PORT = 8080;
 app.use(express.json());
 
 // Используем REST api
-app.use(API_PREFIX, data);
+app.use(API_PREFIX, apiRoutes);
+
+app.use((req, res) => {
+  res.status(HttpCode.NOT_FOUND)
+  res.json({
+    error: {
+      'name': 'Error',
+      'status': 404,
+      'message': 'Invalid Request',
+      'statusCode': 404,
+    }
+  });
+  logger.error(`Wrong route`);
+});
 
 // Используем необходимые модули
 app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
@@ -34,5 +47,14 @@ app.use(`/offers`, offersRoutes);
 app.use(`/content`, contentRoutes);
 app.use(`/`, actionRoutes);
 
-// Запуск сервера
-app.listen(DEFAULT_PORT, () => logInfo(`Сервер запущен на порту: ${DEFAULT_PORT}`, `green`));
+
+app.listen(DEFAULT_PORT, () => {
+  // Регистрируем запуск сервера
+  logger.info(`server start on ${DEFAULT_PORT}`);
+})
+  .on(`error`, (err) => {
+    // Логируем ошибку, если сервер не смог стартовать
+    logger.error(`Server can't start. Error: ${err}`);
+  });
+
+module.exports = app;
