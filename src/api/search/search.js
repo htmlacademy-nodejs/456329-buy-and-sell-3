@@ -13,6 +13,7 @@ module.exports = (app, service) => {
 
   route.get(``, (req, res) => {
     const {query} = req.query;
+    
     if (!query) {
       return res.status(HttpCode.BAD_REQUEST).send(`Invalid query`);
     }
