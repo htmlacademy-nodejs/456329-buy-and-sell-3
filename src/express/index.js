@@ -6,6 +6,7 @@ const app = express();
 const apiRoutes = require(`../api`);
 const {getLogger} = require(`../service/cli/logger`);
 const {HttpCode} = require(`../constants`);
+const bodyParser = require(`body-parser`)
 
 const logger = getLogger();
 
@@ -19,12 +20,13 @@ const PUBLIC_DIR = `public`;
 const API_PREFIX = `/api`;
 const DEFAULT_PORT = 8080;
 
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Используем REST api
 app.use(API_PREFIX, apiRoutes);
 
-app.use((req, res) => {
+/* app.use((req, res) => {
   res.status(HttpCode.NOT_FOUND)
   res.json({
     error: {
@@ -35,7 +37,7 @@ app.use((req, res) => {
     }
   });
   logger.error(`Wrong route`);
-});
+}); */
 
 // Используем необходимые модули
 app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));

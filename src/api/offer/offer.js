@@ -5,7 +5,6 @@ const {HttpCode} = require(`../../constants`);
 const route = new Router();
 const {existingOffer} = require(`../../service/middlewares/offer-exist`);
 const {getLogger} = require(`../../service/cli/logger`);
-
 const logger = getLogger();
 
 
@@ -45,12 +44,14 @@ module.exports = (app, service) => {
 
   route.post(`/`, (req, res) => {
     let offer;
-
+    console.log(req.body)
     if (Object.entries(req.body).length === 0 && req.body.constructor === Object) {
       res.status(HttpCode.BAD_REQUEST)
-        .send(`Data is empty`);
+      .send(`Data is empty`);
+      
     } else {
       offer = service.create(req.body);
+      return res.redirect(`/`);
     }
 
     res.status(HttpCode.CREATED)
